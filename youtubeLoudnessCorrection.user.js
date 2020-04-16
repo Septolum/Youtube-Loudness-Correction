@@ -5,7 +5,7 @@
 // @include        https://www.youtube.com/*
 // @include        https://m.youtube.com/*
 // @icon           https://www.youtube.com/favicon.ico
-// @version        1.0
+// @version        1.1
 // @grant          none
 // @run-at         idle
 // ==/UserScript==
@@ -24,22 +24,20 @@ setInterval(function () {
 function gmMain() {
   "use strict";
 
-  //from: https://github.com/ytdl-org/youtube-dl/blob/c9595ee78027ecf6bedbdc33c690228fa7d3a5bb/youtube_dl/extractor/youtube.py#L1437
-
   var req = new XMLHttpRequest();
   req.open(
     "GET",
-    "https://www.youtube.com/watch?v=" +
+    "https://" +
+      window.location.host +
+      "/watch?v=" +
       /v=(.+?)(?:(?:&.*?)|$)/.exec(window.location.href)[1],
     false
   );
   req.send(null);
   if (req.status == 200) {
-    var loudness = JSON.parse(
-      JSON.parse(
-        /;ytplayer\.config\s*=\s*({.+?});ytplayer/.exec(req.responseText)[1]
-      ).args.player_response
-    ).playerConfig.audioConfig.loudnessDb;
+    var loudness = parseFloat(
+      /"loudnessDb\\":([-0-9.]+),/.exec(req.responseText)[1]
+    );
   }
 
   if (loudness < 0) {
