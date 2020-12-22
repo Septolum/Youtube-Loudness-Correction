@@ -36,7 +36,7 @@ function gmMain() {
   req.send(null);
   if (req.status == 200) {
     var loudness = parseFloat(
-      /"loudnessDb\\":([-0-9.]+),/.exec(req.responseText)[1]
+      /"loudnessDb":([-0-9.]+),/.exec(req.responseText)[1]
     );
   }
 
