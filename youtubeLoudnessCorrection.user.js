@@ -5,7 +5,7 @@
 // @include        https://www.youtube.com/*
 // @include        https://m.youtube.com/*
 // @icon           https://www.youtube.com/favicon.ico
-// @version        1.1
+// @version        1.2
 // @grant          none
 // @run-at         idle
 // ==/UserScript==
